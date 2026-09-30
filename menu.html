@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu — NOIR</title>
+  <meta name="description" content="Full menu of NOIR — modern Mediterranean cuisine in Tallinn.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .menu-page {
+      padding-top: calc(var(--header-h) + 3rem);
+      padding-bottom: 6rem;
+      min-height: 100vh;
+    }
+
+    .menu-hero {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .menu-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .menu-hero p {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .menu-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 3.5rem;
+      padding: 0 1rem;
+    }
+
+    .filter-btn {
+      padding: 0.55rem 1.2rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--border-strong);
+      color: var(--text-muted);
+      transition: all 0.3s;
+      border-radius: var(--radius);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0c0c0c;
+    }
+
+    .menu-sections {
+      width: min(720px, 92%);
+      margin: 0 auto;
+    }
+
+    .menu-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .menu-section.hidden {
+      display: none;
+    }
+
+    .menu-section h2 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.02em;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .menu-item-info h3 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+
+    .menu-item-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .menu-item-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    .menu-item-price {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--accent);
+      min-width: 3rem;
+      text-align: right;
+    }
+
+    .menu-add {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      border: 1px solid var(--border-strong);
+      padding: 0.35rem 0.75rem;
+      transition: all 0.25s;
+    }
+
+    .menu-add:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0c0c0c;
+    }
+
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      transition: color 0.3s;
+    }
+
+    .back-home:hover {
+      color: var(--accent);
+    }
+
+    .menu-note {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <header class="header scrolled" id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">NOIR</a>
+      <nav class="nav">
+        <a href="index.html#menu" class="nav-link">Menu</a>
+        <a href="index.html#experience" class="nav-link">Experience</a>
+        <a href="index.html#gallery" class="nav-link">Gallery</a>
+        <a href="index.html#about" class="nav-link">About</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="theme-icon">☾</span>
+        </button>
+        <a href="index.html" class="btn btn-outline reserve-btn">Back to home</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <nav>
+      <a href="index.html" class="mobile-link">Home</a>
+      <a href="index.html#menu" class="mobile-link">Menu</a>
+      <a href="index.html#experience" class="mobile-link">Experience</a>
+      <a href="index.html#contact" class="mobile-link">Contact</a>
+    </nav>
+  </div>
+
+  <main class="menu-page">
+    <div class="container">
+      <a href="index.html" class="back-home">← Back to home</a>
+
+      <div class="menu-hero">
+        <p class="section-eyebrow">The menu</p>
+        <h1>NOIR</h1>
+        <p>Seasonal · Fire · Sea</p>
+      </div>
+
+      <div class="menu-filters" id="menuFilters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="small">Small plates</button>
+        <button class="filter-btn" data-filter="sea">From the sea</button>
+        <button class="filter-btn" data-filter="fire">From the fire</button>
+        <button class="filter-btn" data-filter="veg">Vegetarian</button>
+        <button class="filter-btn" data-filter="dessert">Dessert</button>
+        <button class="filter-btn" data-filter="drinks">Drinks</button>
+      </div>
+
+      <div class="menu-sections" id="menuSections">
+        <section class="menu-section" data-category="small">
+          <h2>Small plates</h2>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Sourdough & cultured butter</h3>
+              <p>House-made sourdough, cultured butter, sea salt</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€6</span>
+              <button class="menu-add" data-name="Sourdough & cultured butter" data-price="6">Add</button>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Beef carpaccio</h3>
+              <p>Wild rocket · parmesan · black garlic</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€18</span>
+              <button class="menu-add" data-name="Beef Carpaccio" data-price="18">Add</button>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Charred octopus</h3>
+              <p>Smoked potato · preserved lemon · olive</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€19</span>
+              <button class="menu-add" data-name="Charred Octopus" data-price="19">Add</button>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Burrata, peach & basil</h3>
+              <p>Seasonal peach, basil oil, pine nuts</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€16</span>
+              <button class="menu-add" data-name="Burrata, peach & basil" data-price="16">Add</button>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Tuna crudo</h3>
+              <p>Citrus · chilli · coriander</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€17</span>
+              <button class="menu-add" data-name="Tuna crudo" data-price="17">Add</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="menu-section" data-category="sea">
+          <h2>From the sea</h2>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Sea bass</h3>
+              <p>Fennel · citrus beurre blanc · herbs</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€29</span>
+              <button class="menu-add" data-name="Sea Bass" data-price="29">Add</button>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Grilled prawns</h3>
+              <p>Garlic · chilli · lemon · olive oil</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€26</span>
+              <button class="menu-add" data-name="Grilled prawns" data-price="26">Add</button>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Charred octopus</h3>
+              <p>Smoked potato · preserved lemon · olive</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€19</span>
+              <button class="menu-add" data-name="Charred Octopus" data-price="19">Add</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="menu-section" data-category="fire">
+          <h2>From the fire</h2>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Lamb shoulder</h3>
+              <p>Rosemary · aubergine · tahini</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€31</span>
+              <button class="menu-add" data-name="Lamb Shoulder" data-price="31">Add</button>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Dry-aged ribeye</h3>
+              <p>Bone marrow butter · grilled greens</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€39</span>
+              <button class="menu-add" data-name="Dry-aged ribeye" data-price="39">Add</button>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Grilled prawns</h3>
+              <p>Garlic · chilli · lemon · olive oil</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€26</span>
+              <button class="menu-add" data-name="Grilled prawns" data-price="26">Add</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="menu-section" data-category="veg">
+          <h2>Vegetarian</h2>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Burrata, peach & basil</h3>
+              <p>Seasonal peach, basil oil, pine nuts</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€16</span>
+              <button class="menu-add" data-name="Burrata, peach & basil" data-price="16">Add</button>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Roasted aubergine</h3>
+              <p>Tahini · pomegranate · herbs</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€14</span>
+              <button class="menu-add" data-name="Roasted aubergine" data-price="14">Add</button>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Sourdough & cultured butter</h3>
+              <p>House-made sourdough, cultured butter, sea salt</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€6</span>
+              <button class="menu-add" data-name="Sourdough & cultured butter" data-price="6">Add</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="menu-section" data-category="dessert">
+          <h2>Dessert</h2>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Basque cheesecake</h3>
+              <p>Fig · sea salt · olive oil</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€12</span>
+              <button class="menu-add" data-name="Basque Cheesecake" data-price="12">Add</button>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Chocolate crémeux</h3>
+              <p>Olive oil · sea salt · hazelnut</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€11</span>
+              <button class="menu-add" data-name="Chocolate crémeux" data-price="11">Add</button>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Olive oil gelato</h3>
+              <p>House olive oil · citrus zest</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€9</span>
+              <button class="menu-add" data-name="Olive oil gelato" data-price="9">Add</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="menu-section" data-category="drinks">
+          <h2>Drinks</h2>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Natural wine by the glass</h3>
+              <p>Ask for today’s selection</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€9–14</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>House vermouth</h3>
+              <p>On ice · orange</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€8</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Sparkling water</h3>
+              <p>Still available</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€4</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h3>Espresso / filter</h3>
+              <p>Single origin</p>
+            </div>
+            <div class="menu-item-right">
+              <span class="menu-item-price">€3–5</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <p class="menu-note">All dishes may contain allergens. Please inform your server of any dietary requirements.<br>Menu subject to seasonal change.</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border:none; padding-top:0;">
+        <p>© 2026 NOIR · Concept by Ignatov Rostislav</p>
+        <p class="footer-note">Fictional restaurant for portfolio purposes</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme
+    const root = document.documentElement;
+    const saved = localStorage.getItem('noir-theme');
+    if (saved) root.setAttribute('data-theme', saved);
+    const themeToggle = document.getElementById('themeToggle');
+    const updateIcon = () => {
+      themeToggle.querySelector('.theme-icon').textContent =
+        root.getAttribute('data-theme') === 'light' ? '☀' : '☾';
+    };
+    updateIcon();
+    themeToggle.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      if (next === 'dark') root.removeAttribute('data-theme');
+      else root.setAttribute('data-theme', 'light');
+      localStorage.setItem('noir-theme', next === 'dark' ? '' : 'light');
+      updateIcon();
+    });
+
+    // Mobile menu
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    menuToggle.addEventListener('click', () => {
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+    mobileNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileNav.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Filters
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const sections = document.querySelectorAll('.menu-section');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        sections.forEach(sec => {
+          if (filter === 'all' || sec.dataset.category === filter) {
+            sec.classList.remove('hidden');
+          } else {
+            sec.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Simple add feedback (cart is on main page)
+    document.querySelectorAll('.menu-add').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const orig = btn.textContent;
+        btn.textContent = 'Added';
+        setTimeout(() => btn.textContent = orig, 1000);
+      });
+    });
+  </script>
+</body>
+</html>
